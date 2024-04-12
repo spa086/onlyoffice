@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: onlyoffice-documentserver
+  labels:
+    app: onlyoffice-documentserver
+spec:
+  replicas: 1 # Укажите желаемое количество реплик
+  selector:
+    matchLabels:
+      app: onlyoffice-documentserver
+  template:
+    metadata:
+      labels:
+        app: onlyoffice-documentserver
+    spec:
+      containers:
+      - name: onlyoffice-documentserver
+        image: onlyoffice/documentserver:7.3.0
+        ports:
+        - containerPort: 80
+        env:
+        - name: JWT_ENABLED
+          value: "false"
+      restartPolicy: Always
